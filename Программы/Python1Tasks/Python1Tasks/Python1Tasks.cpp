@@ -59,6 +59,13 @@ void prizes() {
     }
 }
 
+void inventory() {
+    cout << "In your inventory:\n";
+    for (auto elem : items) {
+        cout << elem.first << " - " << elem.second << "% luck\n";
+    }
+}
+
 int room() {
     return 
 }
