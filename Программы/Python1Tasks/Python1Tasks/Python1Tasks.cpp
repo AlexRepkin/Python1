@@ -8,6 +8,7 @@ map<string, int> items;
 
 void prizes() {
     cout << "You've obtained...";
+    srand((unsigned)time(0));
     switch (rand() % 10) {
     case 0:
     case 1:
@@ -45,18 +46,19 @@ void prizes() {
 }
 
 void minigames() {
+    srand((unsigned)time(0));
     if (rand() % 2) {
         int number;
         cout << "You've encountered a minigame! Pick a number from 0 to 9.";
         cin >> number;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < (3 + luck_meter/20); i++) {
             if (rand() % 10 == number) cout << "Congratulations, you've won! Here is your prize: ";
             prizes();
             break;
         }
     }
     else {
-
+        //Some other minigame
     }
 }
 
@@ -73,6 +75,7 @@ void stats() {
 
 void room() {
     walked += 1;
+    srand((unsigned)time(0));
     switch (rand() % 10) {
     case 0:
     case 1:
@@ -126,12 +129,12 @@ int main() {
             cout << "\n~~~~~Hooray! You've visited all the rooms!~~~~~";
             break;
         }
-        cout << "\nChoose the door.\n1/ 2/ 3/ stats/ inventory/ bandages?\n";
+        cout << "\n\nChoose the door.\n1/ 2/ 3/ stats/ inventory/ bandages?\n";
         cin >> choosing;
         if (choosing == "1" || choosing == "2" || choosing == "3") room();
-        else if (choosing == "stats") stats();
-        else if (choosing == "inv" || choosing == "inventory") inventory();
-        else if (choosing == "bandages" || choosing == "bandage") {
+        else if (choosing == "stats" || choosing == "s") stats();
+        else if (choosing == "inv" || choosing == "inventory" || choosing == "i") inventory();
+        else if (choosing == "bandages" || choosing == "bandage" || choosing == "b") {
             cout << "You have " << bandages << " Bandages.\n";
             if (bandages > 0) {
                 cout << "Do you want to use them? Y/N?  ";
