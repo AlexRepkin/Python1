@@ -26,7 +26,7 @@ void prizes() {
     case 5:
     case 6: {
         int luck = rand() % 10;
-        cout << "Amulet! It gave you some luck! ( +)"<<luck<<"% luck)";
+        cout << "Amulet! It gave you some luck! ( +"<<luck<<"% luck)";
         luck_meter += luck;
         items.insert(pair<string, int>("Amulet", luck));
         break;
@@ -34,7 +34,7 @@ void prizes() {
     case 7:
     case 8: {
         int luck = (rand() % 10) + 10;
-        cout << "Four-leaf clover! It gave you some luck! ( +)" << luck << "% luck";
+        cout << "Four-leaf clover! It gave you some luck! ( +" << luck << "% luck)";
         luck_meter += luck;
         items.insert(pair<string, int>("Four-leaf clover", luck));
         break;
@@ -118,12 +118,34 @@ int main() {
     cin >> rooms;
     cout << "Great! You've started your journey.";
     while (true) {
-        if (lives < 0 || walked == rooms) break;
-        cout << "\nChoose the door.\n1/ 2/ 3/ stats/ inventory?\n";
+        if (lives < 1) {
+            cout << "\n~~~~~Oh no! You've lost all your lives!~~~~~";
+            break;
+        }
+        if (walked == rooms) {
+            cout << "\n~~~~~Hooray! You've visited all the rooms!~~~~~";
+            break;
+        }
+        cout << "\nChoose the door.\n1/ 2/ 3/ stats/ inventory/ bandages?\n";
         cin >> choosing;
         if (choosing == "1" || choosing == "2" || choosing == "3") room();
         else if (choosing == "stats") stats();
         else if (choosing == "inv" || choosing == "inventory") inventory();
+        else if (choosing == "bandages" || choosing == "bandage") {
+            cout << "You have " << bandages << " Bandages.\n";
+            if (bandages > 0) {
+                cout << "Do you want to use them? Y/N?  ";
+                cin >> choosing;
+                if (choosing == "Y" || choosing == "y")
+                    if (lives < max_lives) {
+                        bandages--;
+                        lives++;
+                        cout << "You've used Bandages. There are " << bandages << " Bandages left.";
+                    }
+                    else cout << "You already have maximum amount of lives.";
+                else cout << "You decided not to use them.";
+            }
+        }
         else cout << "Wrong input!";
     }
     cout << "\nYou've finished your journey.";
